@@ -21,6 +21,9 @@
   },
   "type": "module",
   "private": false,
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "test": "vitest run",
     "test:ci": "vitest run --coverage",
