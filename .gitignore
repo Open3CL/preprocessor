@@ -1,0 +1,7 @@
+/.idea/
+/node_modules/
+/duplicate/
+/coverage/
+junit-report.xml
+.npmrc
+*.iml

@@ -1,0 +1,80 @@
+{
+  "name": "@open3cl/preprocessing",
+  "version": "0.0.1",
+  "description": "A Javascript library to pre-process a DPE",
+  "main": "index.js",
+  "typings": "index.d.ts",
+  "author": "Open3Cl",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/Open3CL/preprocessor/issues"
+  },
+  "homepage": "https://github.com/Open3CL/preprocessor#readme",
+  "keywords": [
+    "dpe",
+    "pre-process",
+    "open3Cl"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Open3CL/preprocessor.git"
+  },
+  "type": "module",
+  "private": false,
+  "scripts": {
+    "test": "vitest run",
+    "test:ci": "vitest run --coverage",
+    "qa:lint": "eslint .",
+    "qa:lint:fix": "npm run qa:lint -- --fix",
+    "qa:duplication": "jscpd",
+    "qa:prettier:check": "prettier --plugin-search-dir . --check",
+    "qa:prettier:format": "prettier --plugin-search-dir . --write .",
+    "release": "semantic-release",
+    "release:dry": "semantic-release --dry-run",
+    "prepare": "husky install",
+    "types:generate": "node scripts/generate-types.js"
+  },
+  "dependencies": {
+    "@open3cl/engine": "1.0.1",
+    "winston": "3.17.0"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "19.3.0",
+    "@commitlint/config-conventional": "19.2.2",
+    "@commitlint/cz-commitlint": "19.2.0",
+    "@semantic-release/changelog": "6.0.3",
+    "@semantic-release/git": "10.0.1",
+    "@semantic-release/github": "10.1.3",
+    "@types/node": "20.14.12",
+    "@vitest/coverage-v8": "2.0.3",
+    "eslint": "8.57.0",
+    "eslint-config-prettier": "9.1.0",
+    "eslint-config-standard": "17.1.0",
+    "eslint-plugin-check-file": "2.8.0",
+    "eslint-plugin-import": "2.29.1",
+    "husky": "9.1.2",
+    "jscpd": "4.0.5",
+    "json-ts": "1.6.4",
+    "prettier": "3.4.2",
+    "pretty-quick": "4.0.0",
+    "semantic-release": "24.2.0",
+    "dioma": "0.4.6",
+    "vitest": "2.0.3"
+  },
+  "jscpd": {
+    "threshold": 0.1,
+    "reporters": [
+      "console",
+      "html"
+    ],
+    "ignore": [
+      "**/*.spec.js"
+    ],
+    "path": [
+      "src"
+    ],
+    "output": "./duplicate",
+    "absolute": true,
+    "gitignore": true
+  }
+}
