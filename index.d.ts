@@ -1,11 +1,9 @@
-declare namespace DpeValidator {
-  class DpeValidator {
-    validate(dpe: FullDpe): ValidationError[];
-  }
+import { Dpe } from './src/dpe/domain/models/dpe.model';
 
-  class DpeComparator {
-    compare(firstDpe: FullDpe, secondDpe: FullDpe): ValidationError[];
+declare namespace DpePreProcessor {
+  class DpePreProcessor {
+    preprocess(dpe: Dpe): void;
   }
 }
 
-export = DpeValidator;
+export = DpePreProcessor;
