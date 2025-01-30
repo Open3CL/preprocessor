@@ -15,6 +15,7 @@ describe('PreProcessMursService service tests', () => {
                 enum_orientation_id: '4',
                 tv_umur0_id: '46',
                 enum_type_vitrage_id: '2',
+                enum_type_doublage_id: '1',
                 enum_type_baie_id: '4',
                 enum_type_materiaux_menuiserie_id: '5'
               }
@@ -60,4 +61,29 @@ describe('PreProcessMursService service tests', () => {
     service.preprocess(dpe);
     expect(dpe.logement.enveloppe.mur_collection.mur[0].donnee_entree.epaisseur_structure).toBe(25);
   });
+
+  it.each([
+    ['1', '1', ''],
+    ['1', '5', 'doublage connu (plâtre, brique'],
+    ['1', '4', 'doublage indéterminé avec lame'],
+    ['1', '3', 'doublage indéterminé ou lame'],
+    ['2', '2', ''],
+    ['2', '5', 'doublage connu (plâtre, brique'],
+    ['2', '4', 'doublage indéterminé avec lame'],
+    ['2', '3', 'doublage indéterminé ou lame'],
+    ['3', '3', 'doublage connu (plâtre, brique'],
+    ['4', '4', 'doublage indéterminé ou lame'],
+    ['5', '5', 'doublage indéterminé ou lame']
+  ])(
+    'enum_type_doublage_id %s mis à jour en %s à partir de la description %s',
+    (enum_type_doublage_id, expectedTypeDoublage, description) => {
+      dpe.logement.enveloppe.mur_collection.mur[0].donnee_entree.enum_type_doublage_id =
+        enum_type_doublage_id;
+      dpe.logement.enveloppe.mur_collection.mur[0].donnee_entree.description = description;
+      service.preprocess(dpe);
+      expect(dpe.logement.enveloppe.mur_collection.mur[0].donnee_entree.enum_type_doublage_id).toBe(
+        expectedTypeDoublage
+      );
+    }
+  );
 });
