@@ -20,7 +20,7 @@ export class PreProcessMursService {
       if (!murDE.epaisseur_structure) {
         /**
          * Certains logiciels omettent le champ 'epaisseur_structure'
-         * Récupération de cette information si elle existe dans la description via regex "(\d+) cm"
+         * Récupération de cette information si elle existe dans la description via regex "(\d+) cm".
          * @type {number}
          */
         let epaisseurStructure = getThicknessFromDescription(murDE.description);
@@ -42,6 +42,26 @@ export class PreProcessMursService {
 
         if (epaisseurStructure) {
           murDE.epaisseur_structure = epaisseurStructure;
+        }
+      }
+
+      /**
+       * Certaines descriptions contiennent des informations sur le type de doublage.
+       * Il arrive régulièrement que les id dans les données d'entrées ne soient pas à jour
+       * Récupération de cette information si elle existe dans la description.
+       * @type {number}
+       */
+      let typeDoublage = parseInt(murDE.enum_type_doublage_id);
+
+      if (typeDoublage === 1 || typeDoublage === 2) {
+        if (murDE.description.toLowerCase().indexOf('doublage connu (plâtre, brique') !== -1) {
+          murDE.enum_type_doublage_id = '5';
+        } else if (
+          murDE.description.toLowerCase().indexOf('doublage indéterminé avec lame') !== -1
+        ) {
+          murDE.enum_type_doublage_id = '4';
+        } else if (murDE.description.toLowerCase().indexOf('doublage indéterminé ou lame') !== -1) {
+          murDE.enum_type_doublage_id = '3';
         }
       }
     });
